@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TripGuide.Data.Entities;
 
 namespace TripGuide.Data;
 
@@ -9,5 +10,8 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
+
+    public DbSet<Trip> Trips { get; set; }
+    public DbSet<PlaceToVisit> PlacesToVisit { get; set; }
 }
 
