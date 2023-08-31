@@ -1,0 +1,21 @@
+@model CreateTripViewModel
+
+<form method="post">
+    <label asp-for="Name">Name:</label>
+    <input asp-for="Name"/>
+    <span class="text-danger" asp-validation-for="Name"></span>
+    
+    <label asp-for="Location">Location:</label>
+    <input asp-for="Location"/>
+    <span class="text-danger" asp-validation-for="Location"></span>
+    
+    <label asp-for="StartDate">Start date:</label>
+    <input asp-for="StartDate"/>
+    <span class="text-danger" asp-validation-for="StartDate"></span>
+    
+    <label asp-for="EndDate">End date:</label>
+    <input asp-for="EndDate"/>
+    <span class="text-danger" asp-validation-for="EndDate"></span>
+    
+    <button>Add</button>
+</form>

@@ -1,0 +1,14 @@
+@model List<TripViewModel>
+
+<a asp-action="CreateTrip">Create new trip</a>
+
+@foreach (var trip in Model)
+{
+    <div>
+        <p>@trip.Id</p>
+        <p>@trip.Name</p>
+        <p>@trip.Location</p>
+        <p>@trip.StartDate</p>
+        <p>@trip.EndDate</p>
+    </div>
+}

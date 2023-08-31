@@ -1,3 +1,5 @@
+using TripGuide.Models;
+
 namespace TripGuide.Data.Entities;
 
 public class Trip
@@ -10,4 +12,16 @@ public class Trip
     public DateTime EndDate { get; set; }
     
     public List<PlaceToVisit> PlacesToVisit { get; set; }
+
+    public TripViewModel MapToViewModel()
+    {
+        return new TripViewModel
+        {
+            Id = Id,
+            Name = Name,
+            Location = Location,
+            StartDate = StartDate,
+            EndDate = EndDate
+        };
+    }
 }
