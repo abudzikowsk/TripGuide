@@ -1,21 +1,32 @@
 @model CreateTripViewModel
 
-<form method="post">
-    <label asp-for="Name">Name:</label>
-    <input asp-for="Name"/>
-    <span class="text-danger" asp-validation-for="Name"></span>
-    
-    <label asp-for="Location">Location:</label>
-    <input asp-for="Location"/>
-    <span class="text-danger" asp-validation-for="Location"></span>
-    
-    <label asp-for="StartDate">Start date:</label>
-    <input asp-for="StartDate"/>
-    <span class="text-danger" asp-validation-for="StartDate"></span>
-    
-    <label asp-for="EndDate">End date:</label>
-    <input asp-for="EndDate"/>
-    <span class="text-danger" asp-validation-for="EndDate"></span>
-    
-    <button>Add</button>
-</form>
+<div class="new-trip">
+    <h1>Create new trip</h1>
+    <form class="new-trip-form" method="post">
+        <div class="input">
+            <label asp-for="Name">Name:</label>
+            <input asp-for="Name"/>
+            <span class="validation-error" asp-validation-for="Name"></span>
+        </div>
+        
+        <div class="input">
+            <label asp-for="Location">Location:</label>
+            <input asp-for="Location"/>
+            <span class="validation-error" asp-validation-for="Location"></span>
+        </div>
+        
+        <div class="input">
+            <label asp-for="StartDate">Start date:</label>
+            <input asp-for="StartDate"/>
+            <span class="validation-error" asp-validation-for="StartDate"></span>
+        </div>
+        
+        <div class="input">
+            <label asp-for="EndDate">End date:</label>
+            <input asp-for="EndDate"/>
+            <span class="validation-error" asp-validation-for="EndDate"></span>
+        </div>
+        
+        <button class="button">Add</button>
+    </form>
+</div>

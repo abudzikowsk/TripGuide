@@ -2,13 +2,18 @@
 
 <a asp-action="CreateTrip">Create new trip</a>
 
-@foreach (var trip in Model)
-{
-    <div>
-        <p>@trip.Id</p>
-        <p>@trip.Name</p>
-        <p>@trip.Location</p>
-        <p>@trip.StartDate</p>
-        <p>@trip.EndDate</p>
-    </div>
-}
+<h1 class="header">Your trips</h1>
+<div class="trips-list">
+    <span class="title-for-trip-list">Name</span>
+    <span class="title-for-trip-list">Location</span>
+    <span class="title-for-trip-list">Start date</span>
+    <span class="title-for-trip-list">End date</span>
+        
+    @foreach (var trip in Model)
+    {
+        <span>@trip.Name</span>
+        <span>@trip.Location</span>
+        <span>@trip.StartDate</span>
+        <span>@trip.EndDate</span>
+    }
+</div>
