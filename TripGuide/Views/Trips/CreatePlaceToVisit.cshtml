@@ -1,0 +1,25 @@
+@model CreatePlaceToVisitViewModel
+
+<h1>Add place to visit</h1>
+
+<form method="post">
+    <div>
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name"/>
+        <span asp-validation-for="Name"></span>
+    </div>
+    
+    <div>
+        <label asp-for="VisitOrder">Location visit order</label>
+        <input asp-for="VisitOrder"/>
+        <span asp-validation-for="VisitOrder"></span>
+    </div>
+    
+    <div>
+        <label asp-for="Note">Note</label>
+        <input asp-for="Note"/>
+        <span asp-validation-for="Note"></span>
+    </div>
+    
+    <button type="submit">Add</button>
+</form>

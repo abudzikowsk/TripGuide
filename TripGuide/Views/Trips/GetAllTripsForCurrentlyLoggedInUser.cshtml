@@ -11,7 +11,7 @@
         
     @foreach (var trip in Model)
     {
-        <span>@trip.Name</span>
+        <a asp-action="TripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a>
         <span>@trip.Location</span>
         <span>@trip.StartDate</span>
         <span>@trip.EndDate</span>

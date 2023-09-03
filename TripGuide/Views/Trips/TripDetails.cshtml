@@ -1,0 +1,21 @@
+@using TripGuide.Data.Entities
+@model TripDetailsViewModel
+
+<a asp-action="CreatePlaceToVisit" asp-route-tripId="@Model.Id">Create place to visit</a>
+
+<h1>Trip details @Model.Name</h1>
+
+<p>@Model.Id</p>
+<p>@Model.Name</p>
+<p>@Model.Location</p>
+<p>@Model.StartDate</p>
+<p>@Model.EndDate</p>
+
+@foreach (var placeToVisit in @Model.PlacesToVisit)
+{
+    <div>
+        <p>@placeToVisit.VisitOrder</p>
+        <p>@placeToVisit.Name</p>
+        <p>@placeToVisit.Note</p>
+    </div>
+}

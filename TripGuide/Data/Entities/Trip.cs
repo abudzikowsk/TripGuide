@@ -24,4 +24,24 @@ public class Trip
             EndDate = EndDate
         };
     }
+
+    public TripDetailsViewModel MapToDetailsViewModel()
+    {
+        var result = new TripDetailsViewModel
+        {
+            Id = Id,
+            Name = Name,
+            Location = Location,
+            StartDate = StartDate,
+            EndDate = EndDate,
+            PlacesToVisit = new List<PlaceToVisitViewModel>()
+        };
+
+        foreach (var placeToVisit in PlacesToVisit)
+        { 
+            result.PlacesToVisit.Add(placeToVisit.MapToViewModel());
+        }
+
+        return result;
+    }
 }

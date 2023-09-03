@@ -1,3 +1,5 @@
+using TripGuide.Models;
+
 namespace TripGuide.Data.Entities;
 
 public class PlaceToVisit
@@ -9,4 +11,17 @@ public class PlaceToVisit
     public string Note { get; set; }
     public int Longitude { get; set; }
     public int Latitude { get; set; }
+
+    public PlaceToVisitViewModel MapToViewModel()
+    {
+        return new PlaceToVisitViewModel
+        {
+            Id = Id,
+            Name = Name,
+            Latitude = Latitude,
+            Longitude = Longitude,
+            Note = Note,
+            VisitOrder = VisitOrder
+        };
+    }
 }

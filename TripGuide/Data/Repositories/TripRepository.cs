@@ -59,7 +59,7 @@ public class TripRepository
         await _applicationDbContext.SaveChangesAsync();
     }
 
-    public async Task CreatePlaceToVisit(
+    public async Task CreatePlaceToVisitAsync(
         int tripId, 
         string name, 
         int visitOrder, 
