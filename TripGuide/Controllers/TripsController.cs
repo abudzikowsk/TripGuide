@@ -103,4 +103,13 @@ public class TripsController : Controller
 
         return RedirectToAction("TripDetails", new { id = tripId });
     }
+
+    [HttpPost]
+    [Route("{action}/{tripId:int}/{placeToVisitId:int}")]
+    public async Task<ActionResult> DeletePlaceToVisit(int tripId, int placeToVisitId)
+    {
+        await _tripRepository.DeletePlaceToVisitAsync(placeToVisitId);
+
+        return RedirectToAction("TripDetails", new { id = tripId });
+    }
 }

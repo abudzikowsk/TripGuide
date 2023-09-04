@@ -1,0 +1,36 @@
+.new-place {
+    background-color: #e76f51;
+    color: white;
+    border-radius: 10px;
+    margin: auto;
+    width: 40%;
+    text-align: center;
+}
+
+::deep .new-place-form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+::deep .input {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+::deep .button {
+    width: 10%;
+    background-color: #2a9d8f;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+::deep .validation-error {
+    color: #264653;
+}
+
