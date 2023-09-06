@@ -1,9 +1,18 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<TripViewModel>
+@{
+    ViewData["Title"] = "Trips List";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="header">Trips List</h1>
+<div class="trips-list">
+    <span class="title-for-trip-list">Name</span>
+    <span class="title-for-trip-list">Location</span>
+        
+    @foreach (var trip in Model)
+    {
+        <a asp-route-id="@trip.Id"><span>@trip.Name</span></a>
+        <span>@trip.Location</span>
+    }
 </div>
+
 

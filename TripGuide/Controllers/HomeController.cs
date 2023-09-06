@@ -1,23 +1,35 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using TripGuide.Data.Repositories;
 using TripGuide.Models;
 
 namespace TripGuide.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly TripRepository _tripRepository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(TripRepository tripRepository)
     {
-        _logger = logger;
+        _tripRepository = tripRepository;
     }
-
-    public IActionResult Index()
+    
+    [HttpGet]
+    public async Task<IActionResult> Index()
     {
-        return View();
-    }
+        var allTrips = await _tripRepository.GetAllPublicTrips();
+        
+        var result = new List<TripViewModel>();
 
+        foreach (var trip in allTrips)
+        {
+            result.Add(trip.MapToViewModel());
+        }
+
+        return View(result);
+    }
+    
+    [HttpGet]
     public IActionResult Privacy()
     {
         return View();

@@ -1,5 +1,9 @@
 @using TripGuide.Data.Entities
+@using TripGuide.Enums
 @model TripDetailsViewModel
+@{
+    ViewData["Title"] = "Create place to visit";
+}
 
 <a asp-action="CreatePlaceToVisit" asp-route-tripId="@Model.Id">Create place to visit</a>
 
@@ -8,6 +12,10 @@
     <h6>Location: @Model.Location</h6>
     <h6>Start date: @Model.StartDate.ToString("D")</h6>
     <h6>End date: @Model.EndDate.ToString("D")</h6>
+    <h6>Is public? @(Model.IsPublic ? "Yes" : "No") </h6>
+    <form asp-action="SwitchTripStatusPublicity" asp-route-tripId="@Model.Id" asp-route-source="@SourceEnum.TripDetails.ToString()">
+        <button type="submit">Switch</button>
+    </form>
 </div>
 <h2 class="header">Places to visit</h2>
 <div class="places-list">

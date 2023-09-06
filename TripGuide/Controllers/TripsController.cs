@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TripGuide.Data.Entities;
 using TripGuide.Data.Repositories;
+using TripGuide.Enums;
 using TripGuide.Models;
 
 namespace TripGuide.Controllers;
@@ -111,5 +112,21 @@ public class TripsController : Controller
         await _tripRepository.DeletePlaceToVisitAsync(placeToVisitId);
 
         return RedirectToAction("TripDetails", new { id = tripId });
+    }
+
+    [HttpPost]
+    [Route("{action}/{tripId:int}/{source}")]
+    public async Task<ActionResult> SwitchTripStatusPublicity(int tripId,string source)
+    {
+        await _tripRepository.SwitchTripPublicityStatus(tripId);
+
+        if (source == SourceEnum.TripList.ToString())
+        {
+            return RedirectToAction("GetAllTripsForCurrentlyLoggedInUser");
+        }
+        else
+        {
+            return RedirectToAction("TripDetails", new { id = tripId});
+        }
     }
 }

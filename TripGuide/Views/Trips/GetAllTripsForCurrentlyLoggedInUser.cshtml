@@ -1,4 +1,8 @@
+@using TripGuide.Enums
 @model List<TripViewModel>
+@{
+    ViewData["Title"] = "Create new trip";
+}
 
 <a asp-action="CreateTrip">Create new trip</a>
 
@@ -8,6 +12,7 @@
     <span class="title-for-trip-list">Location</span>
     <span class="title-for-trip-list">Start date</span>
     <span class="title-for-trip-list">End date</span>
+    <span class="title-for-trip-list">Is public?</span>
         
     @foreach (var trip in Model)
     {
@@ -15,5 +20,11 @@
         <span>@trip.Location</span>
         <span>@trip.StartDate</span>
         <span>@trip.EndDate</span>
+        <span>
+            @(trip.IsPublic ? "Yes" : "No")
+            <form class="switch-publicity-form" asp-action="SwitchTripStatusPublicity" asp-route-tripId="@trip.Id" asp-route-source="@SourceEnum.TripList.ToString()">
+                <button type="submit">Switch</button>
+            </form>
+        </span>                   
     }
 </div>

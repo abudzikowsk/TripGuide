@@ -8,8 +8,5 @@
 
 .trips-list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-}
-::deep .switch-publicity-form {
-    display: inline;
+    grid-template-columns: repeat(2, 1fr);
 }

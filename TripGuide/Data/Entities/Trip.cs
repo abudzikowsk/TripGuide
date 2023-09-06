@@ -11,6 +11,8 @@ public class Trip
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     
+    public bool IsPublic { get; set; }
+    
     public List<PlaceToVisit> PlacesToVisit { get; set; }
 
     public TripViewModel MapToViewModel()
@@ -21,7 +23,8 @@ public class Trip
             Name = Name,
             Location = Location,
             StartDate = StartDate,
-            EndDate = EndDate
+            EndDate = EndDate,
+            IsPublic = IsPublic
         };
     }
 
@@ -34,6 +37,7 @@ public class Trip
             Location = Location,
             StartDate = StartDate,
             EndDate = EndDate,
+            IsPublic = IsPublic,
             PlacesToVisit = new List<PlaceToVisitViewModel>()
         };
 

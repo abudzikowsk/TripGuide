@@ -20,6 +20,14 @@ public class TripRepository
             .ToListAsync();
     }
 
+    public async Task<List<Trip>> GetAllPublicTrips()
+    {
+        return await _applicationDbContext.Trips
+            .Include(t => t.PlacesToVisit)
+            .Where(t => t.IsPublic)
+            .ToListAsync();
+    }
+
     public async Task<Trip> GetTripByIdAsync(int id)
     {
         return await _applicationDbContext.Trips
@@ -98,6 +106,19 @@ public class TripRepository
         }
 
         _applicationDbContext.PlacesToVisit.Remove(placeToDelete);
+        await _applicationDbContext.SaveChangesAsync();
+    }
+
+    public async Task SwitchTripPublicityStatus(int tripId)
+    {
+        var trip = await _applicationDbContext.Trips.SingleOrDefaultAsync(p => p.Id == tripId);
+
+        if (trip == null)
+        {
+            return;
+        }
+
+        trip.IsPublic = !trip.IsPublic;
         await _applicationDbContext.SaveChangesAsync();
     }
 }
