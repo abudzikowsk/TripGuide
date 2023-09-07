@@ -16,7 +16,11 @@
     <form asp-action="SwitchTripStatusPublicity" asp-route-tripId="@Model.Id" asp-route-source="@SourceEnum.TripDetails.ToString()">
         <button type="submit">Switch</button>
     </form>
+    <form>
+        <button type="submit">Delete trip</button>
+    </form>
 </div>
+
 <h2 class="header">Places to visit</h2>
 <div class="places-list">
     <span class="title-for-place-list">Location visit order:</span>

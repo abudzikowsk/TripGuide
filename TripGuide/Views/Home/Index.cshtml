@@ -10,7 +10,7 @@
         
     @foreach (var trip in Model)
     {
-        <a asp-route-id="@trip.Id"><span>@trip.Name</span></a>
+        <a asp-action="HomeTripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a>
         <span>@trip.Location</span>
     }
 </div>

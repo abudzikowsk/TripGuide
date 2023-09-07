@@ -1,0 +1,19 @@
+@using TripGuide.Data.Entities
+@model TripDetailsViewModel
+
+<h1 class="header">Trip details @Model.Name</h1>
+<div class="details">
+    <h6>Location: @Model.Location</h6>
+</div>
+
+<h2 class="header">Places to visit</h2>
+<div class="places-list">
+    <span class="title-for-place-list">Location visit order:</span>
+    <span class="title-for-place-list">Name</span>
+    
+@foreach (var placeToVisit in @Model.PlacesToVisit)
+{
+    <p>@placeToVisit.VisitOrder</p>
+    <p>@placeToVisit.Name</p>                           
+}
+</div>

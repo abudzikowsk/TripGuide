@@ -115,6 +115,15 @@ public class TripsController : Controller
     }
 
     [HttpPost]
+    [Route("{action}/{tripId:int}")]
+    public async Task<ActionResult> DeleteTrip(int tripId)
+    {
+        await _tripRepository.DeleteTripAsync(tripId);
+
+        return RedirectToAction("GetAllTripsForCurrentlyLoggedInUser");
+    }
+
+    [HttpPost]
     [Route("{action}/{tripId:int}/{source}")]
     public async Task<ActionResult> SwitchTripStatusPublicity(int tripId,string source)
     {

@@ -13,6 +13,7 @@
     <span class="title-for-trip-list">Start date</span>
     <span class="title-for-trip-list">End date</span>
     <span class="title-for-trip-list">Is public?</span>
+    <span class="title-for-trip-list">Delete?</span>
         
     @foreach (var trip in Model)
     {
@@ -25,6 +26,9 @@
             <form class="switch-publicity-form" asp-action="SwitchTripStatusPublicity" asp-route-tripId="@trip.Id" asp-route-source="@SourceEnum.TripList.ToString()">
                 <button type="submit">Switch</button>
             </form>
-        </span>                   
+        </span>           
+        <form>
+            <button type="submit">Yes</button>
+        </form>
     }
 </div>
