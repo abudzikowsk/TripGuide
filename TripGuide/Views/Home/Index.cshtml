@@ -7,12 +7,16 @@
 <div class="trips-list">
     <span class="title-for-trip-list">Name</span>
     <span class="title-for-trip-list">Location</span>
-        
+    <span class="title-for-trip-list">Favorite</span>
+   
     @foreach (var trip in Model)
     {
         <a asp-action="HomeTripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a>
         <span>@trip.Location</span>
+        <form method="post" asp-controller="Favorite" asp-action="CreateFavorite" asp-route-id="@trip.Id">
+            <button type="submit">Add</button>
+        </form>
     }
-</div>
 
+</div> 
 

@@ -1,0 +1,20 @@
+@using TripGuide.Data.Entities
+@model List<FavoriteViewModel>
+
+<h1 class="header">Your favorite</h1>
+<div class="trips-list">
+    <span class="title-for-trip-list">Name</span>
+    <span class="title-for-trip-list">Location</span>
+    <span class="title-for-trip-list">Favorite</span>
+
+
+@foreach (var favorite in Model)
+{
+    <a asp-action="GetAllFavoritesByUserId" asp-route-id="@favorite.Id"><span>@favorite.Name</span></a>
+    <span>@favorite.Location</span>
+    <form method="post" asp-controller="Favorite" asp-action="DeleteFavorite" asp-route-id="@favorite.Id">
+       <button type="submit">Delete</button>
+    </form>    
+}
+
+</div>

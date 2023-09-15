@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<TripRepository>();
+builder.Services.AddScoped<FavoriteRepository>();
 
 var app = builder.Build();
 

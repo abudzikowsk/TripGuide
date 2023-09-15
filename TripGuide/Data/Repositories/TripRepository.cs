@@ -52,9 +52,9 @@ public class TripRepository
 
     public async Task DeleteTripAsync(int id)
     {
-        var tripToDeletion = _applicationDbContext.Trips
+        var tripToDeletion = await _applicationDbContext.Trips
             .Include(t => t.PlacesToVisit)
-            .SingleOrDefault(t => t.Id == id);
+            .SingleOrDefaultAsync(t => t.Id == id);
 
         if (tripToDeletion == null)
         {

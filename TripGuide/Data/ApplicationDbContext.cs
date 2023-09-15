@@ -13,5 +13,7 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<Trip> Trips { get; set; }
     public DbSet<PlaceToVisit> PlacesToVisit { get; set; }
+
+    public DbSet<Favorite> Favorites { get; set; }
 }
 
