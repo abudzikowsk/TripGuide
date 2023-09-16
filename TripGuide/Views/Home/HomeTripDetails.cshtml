@@ -1,10 +1,31 @@
 @using TripGuide.Data.Entities
+@using Microsoft.AspNetCore.Identity
+@using TripGuide.Enums
 @model TripDetailsViewModel
+@inject SignInManager<IdentityUser> SignInManager
 
 <h1 class="header">Trip details @Model.Name</h1>
 <div class="details">
-    <h6>Location: @Model.Location</h6>
-</div>
+        <h6>Location: @Model.Location</h6>
+    </div>
+@if (SignInManager.IsSignedIn(User))
+{
+    <div>
+        <p>Is already your favorite?</p>
+        @if (!Model.IsCreatedByCurrentUser && !Model.IsAlreadyCurrentUserFavorite)
+        {
+            <form asp-controller="Favorite" asp-action="CreateFavorite" method="post" asp-route-tripId="@Model.Id" asp-route-source="@SourceEnum.TripDetails.ToString()">
+                <button type="submit">Add</button>
+            </form> 
+        }
+        else
+        {
+            <form asp-controller="Favorite" asp-action="DeleteFavorite" method="post" asp-route-tripId="@Model.Id" asp-route-source="@SourceEnum.TripDetails.ToString()">
+                <button type="submit">Delete</button>
+            </form>
+        }
+    </div>
+}
 
 <h2 class="header">Places to visit</h2>
 <div class="places-list">

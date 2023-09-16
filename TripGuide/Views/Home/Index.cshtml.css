@@ -10,3 +10,13 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
+
+::deep .trip-name {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.trip-location {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}

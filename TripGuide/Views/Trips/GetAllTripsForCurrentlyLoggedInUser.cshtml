@@ -7,28 +7,35 @@
 <a asp-action="CreateTrip">Create new trip</a>
 
 <h1 class="header">Your trips</h1>
-<div class="trips-list">
-    <span class="title-for-trip-list">Name</span>
-    <span class="title-for-trip-list">Location</span>
-    <span class="title-for-trip-list">Start date</span>
-    <span class="title-for-trip-list">End date</span>
-    <span class="title-for-trip-list">Is public?</span>
-    <span class="title-for-trip-list">Delete?</span>
-        
-    @foreach (var trip in Model)
-    {
-        <a asp-action="TripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a>
-        <span>@trip.Location</span>
-        <span>@trip.StartDate</span>
-        <span>@trip.EndDate</span>
-        <span>
-            @(trip.IsPublic ? "Yes" : "No")
-            <form class="switch-publicity-form" asp-action="SwitchTripStatusPublicity" asp-route-tripId="@trip.Id" asp-route-source="@SourceEnum.TripList.ToString()">
-                <button type="submit">Switch</button>
+@if(Model.Count > 0)
+{
+    <div class="trips-list">
+        <span class="title-for-trip-list">Name</span>
+        <span class="title-for-trip-list">Location</span>
+        <span class="title-for-trip-list">Start date</span>
+        <span class="title-for-trip-list">End date</span>
+        <span class="title-for-trip-list">Is public?</span>
+        <span class="title-for-trip-list">Delete?</span>
+            
+        @foreach (var trip in Model)
+        {
+            <a asp-action="TripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a>
+            <span>@trip.Location</span>
+            <span>@trip.StartDate</span>
+            <span>@trip.EndDate</span>
+            <span>
+                @(trip.IsPublic ? "Yes" : "No")
+                <form class="switch-publicity-form" asp-action="SwitchTripStatusPublicity" asp-route-tripId="@trip.Id" asp-route-source="@SourceEnum.TripList.ToString()">
+                    <button type="submit">Switch</button>
+                </form>
+            </span>           
+            <form>
+                <button type="submit">Yes</button>
             </form>
-        </span>           
-        <form>
-            <button type="submit">Yes</button>
-        </form>
-    }
-</div>
+        }
+    </div>
+}
+else
+{
+    <p>Your list is empty, start creating! Let's add new trip!</p>
+}

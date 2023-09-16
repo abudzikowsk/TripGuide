@@ -1,4 +1,8 @@
-﻿@model List<TripViewModel>
+﻿@using Microsoft.AspNetCore.Identity
+@using TripGuide.Enums
+@model List<TripViewModel>
+@inject SignInManager<IdentityUser> SignInManager
+
 @{
     ViewData["Title"] = "Trips List";
 }
@@ -11,11 +15,23 @@
    
     @foreach (var trip in Model)
     {
-        <a asp-action="HomeTripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a>
-        <span>@trip.Location</span>
-        <form method="post" asp-controller="Favorite" asp-action="CreateFavorite" asp-route-id="@trip.Id">
-            <button type="submit">Add</button>
-        </form>
+        <a class="trip-name" asp-action="HomeTripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a>
+        <span class="trip-location">@trip.Location</span>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if(!trip.IsCreatedByCurrentUser && !trip.IsAlreadyCurrentUserFavorite)
+            {
+                <form method="post" asp-controller="Favorite" asp-action="CreateFavorite" asp-route-tripId="@trip.Id" asp-route-source="@SourceEnum.TripList.ToString()">
+                    <button type="submit">Add</button>
+                </form>
+            }
+            else
+            {
+                <form  asp-controller="Favorite" asp-action="DeleteFavorite" asp-route-tripId="@trip.Id" asp-route-source="@SourceEnum.TripList.ToString()">
+                    <button type="submit">Delete</button>
+                </form>
+            }
+        }
     }
 
 </div> 

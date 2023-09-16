@@ -12,7 +12,7 @@
 {
     <a asp-action="GetAllFavoritesByUserId" asp-route-id="@favorite.Id"><span>@favorite.Name</span></a>
     <span>@favorite.Location</span>
-    <form method="post" asp-controller="Favorite" asp-action="DeleteFavorite" asp-route-id="@favorite.Id">
+    <form method="post" asp-controller="Favorite" asp-action="DeleteFavorite" asp-route-tripId="@favorite.Id">
        <button type="submit">Delete</button>
     </form>    
 }

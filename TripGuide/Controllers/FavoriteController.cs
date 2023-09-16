@@ -1,10 +1,13 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TripGuide.Data.Repositories;
+using TripGuide.Enums;
 using TripGuide.Models;
 
 namespace TripGuide.Controllers;
 
+[Authorize]
 public class FavoriteController : Controller
 {
     private readonly FavoriteRepository _favoriteRepository;
@@ -28,30 +31,42 @@ public class FavoriteController : Controller
         {
             result.Add(favorite.MapToViewModel());
         }
-
         return View(result);
     }
 
     [HttpPost]
-    [Route("{action}/{id:int}")]
-    public async Task<ActionResult> DeleteFavorite(int id)
+    [Route("{action}/{tripId:int}/{source}")]
+    public async Task<ActionResult> DeleteFavorite(int tripId, string source)
     {
-        await _favoriteRepository.DeleteFavoriteAsync(id);
-        return RedirectToAction("GetAllFavoritesByUserId");
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        await _favoriteRepository.DeleteFavoriteAsync(tripId, userId);
+
+        if (source == SourceEnum.TripList.ToString())
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        
+        return RedirectToAction("HomeTripDetails", "Home", new {id = tripId});
     }
 
     [HttpPost]
-    [Route("{action}/{id:int}")]
-    public async Task<ActionResult> CreateFavorite(int id)
+    [Route("{action}/{tripId:int}/{source}")]
+    public async Task<ActionResult> CreateFavorite(int tripId, string source)
     {
         var user = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-        var isAlreadyFavoriteForUserAsync = await _favoriteRepository.IsAlreadyFavoriteForUserAsync(id, user);
+        var isAlreadyFavoriteForUserAsync = await _favoriteRepository.IsAlreadyFavoriteForUserAsync(tripId, user);
 
         if (!isAlreadyFavoriteForUserAsync)
         {
-            await _favoriteRepository.CreateFavoriteAsync(id, user);
+            await _favoriteRepository.CreateFavoriteAsync(tripId, user);
         }
-        return RedirectToAction("Index", "Home");
+
+        if (source == SourceEnum.TripList.ToString())
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+        return RedirectToAction("HomeTripDetails", "Home", new {id = tripId});
     }
 }

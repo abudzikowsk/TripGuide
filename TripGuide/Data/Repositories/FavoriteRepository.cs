@@ -21,10 +21,10 @@ public class FavoriteRepository
             .ToListAsync();
     }
 
-    public async Task DeleteFavoriteAsync(int id)
+    public async Task DeleteFavoriteAsync(int tripId, string userId)
     {
         var favoriteToDelete = await _applicationDbContext.Favorites
-            .SingleOrDefaultAsync(f => f.Id == id);
+            .SingleOrDefaultAsync(f => f.TripId == tripId && f.UserId == userId);
 
         if (favoriteToDelete == null)
         {
