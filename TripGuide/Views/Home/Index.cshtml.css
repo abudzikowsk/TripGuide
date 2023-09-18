@@ -8,7 +8,7 @@
 
 .trips-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 
 ::deep .trip-name {
@@ -19,4 +19,9 @@
 .trip-location {
     grid-column-start: 2;
     grid-column-end: 3;
+}
+
+.trip-favorite-count{
+    grid-column-start: 3;
+    grid-column-end: 4;
 }

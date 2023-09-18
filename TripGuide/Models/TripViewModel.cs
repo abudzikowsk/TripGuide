@@ -10,4 +10,6 @@ public class TripViewModel
     public bool IsPublic { get; set; }
     public bool IsCreatedByCurrentUser { get; set; }
     public bool IsAlreadyCurrentUserFavorite { get; set; }
+
+    public int FavoriteCount { get; set; }
 }

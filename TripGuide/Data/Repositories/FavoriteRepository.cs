@@ -69,4 +69,10 @@ public class FavoriteRepository
         }
         return true;
     }
+
+    public async Task<int> CountTripFavoritesAsync(int tripId)
+    {
+        var favoriteCount = await _applicationDbContext.Favorites.Where(f => f.TripId == tripId).CountAsync();
+        return favoriteCount;
+    }
 }

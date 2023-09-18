@@ -36,6 +36,7 @@ public class HomeController : Controller
         {
             var tripViewModel = trip.MapToViewModel();
             tripViewModel.IsCreatedByCurrentUser = trip.UserId == userId;
+            tripViewModel.FavoriteCount = await _favoriteRepository.CountTripFavoritesAsync(trip.Id);
             if (userFavorites != null)
             {
                 var favorite = userFavorites.SingleOrDefault(f => f.TripId == trip.Id);
@@ -74,6 +75,7 @@ public class HomeController : Controller
 
         var tripViewModel = trip.MapToDetailsViewModel();
         tripViewModel.IsCreatedByCurrentUser = trip.UserId == userId;
+        tripViewModel.FavoriteCount = await _favoriteRepository.CountTripFavoritesAsync(trip.Id);
         
         if (userFavorites != null)
         {

@@ -19,7 +19,8 @@ public class Favorite
         {
             Id = Id,
             Location = Trip.Location,
-            Name = Trip.Name
+            Name = Trip.Name,
+            TripId = TripId
         };
     }
 }

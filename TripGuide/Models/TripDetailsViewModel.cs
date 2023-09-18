@@ -11,4 +11,6 @@ public class TripDetailsViewModel
     public bool IsCreatedByCurrentUser { get; set; }
     public bool IsAlreadyCurrentUserFavorite { get; set; }
     public List<PlaceToVisitViewModel> PlacesToVisit { get; set; }
+
+    public int FavoriteCount { get; set; }
 }
