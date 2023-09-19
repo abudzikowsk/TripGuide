@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using TripGuide.Enums
-@model List<TripViewModel>
+@model IndexViewModel
 @inject SignInManager<IdentityUser> SignInManager
 
 @{
@@ -8,13 +8,18 @@
 }
 
 <h1 class="header">Trips List</h1>
+<form method="get">
+    <label for="locationsToFilter">Locations</label>
+    <select id="locationsToFilter" name="locationsToFilter" asp-items="@Model.AllLocations" multiple="multiple"></select>
+    <button type="submit">Filter</button>
+</form>
 <div class="trips-list">
     <span class="title-for-trip-list">Name</span>
     <span class="title-for-trip-list">Location</span>
     <span class="title-for-trip-list">Users love</span>
     <span class="title-for-trip-list">Favorite</span>
    
-    @foreach (var trip in Model)
+    @foreach (var trip in Model.Trips)
     {
         <a class="trip-name" asp-action="HomeTripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a>
         <span class="trip-location">@trip.Location</span>

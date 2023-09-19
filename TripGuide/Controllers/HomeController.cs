@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TripGuide.Data.Entities;
 using TripGuide.Data.Repositories;
 using TripGuide.Models;
@@ -19,11 +20,13 @@ public class HomeController : Controller
     }
     
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(List<string> locationsToFilter)
     {
-        var allTrips = await _tripRepository.GetAllPublicTrips();
+        var allTrips = await _tripRepository.GetAllPublicTrips(locationsToFilter);
         
-        var result = new List<TripViewModel>();
+        var result = new IndexViewModel();
+        result.Trips = new List<IndexTripViewModel>();
+        result.AllLocations = new List<SelectListItem>();
 
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         List<Favorite> userFavorites = null;
@@ -34,17 +37,25 @@ public class HomeController : Controller
         
         foreach (var trip in allTrips)
         {
-            var tripViewModel = trip.MapToViewModel();
-            tripViewModel.IsCreatedByCurrentUser = trip.UserId == userId;
-            tripViewModel.FavoriteCount = await _favoriteRepository.CountTripFavoritesAsync(trip.Id);
+            var indexTripViewModel = trip.MapToIndexTripViewModel();
+            indexTripViewModel.IsCreatedByCurrentUser = trip.UserId == userId;
+            indexTripViewModel.FavoriteCount = await _favoriteRepository.CountTripFavoritesAsync(trip.Id);
             if (userFavorites != null)
             {
                 var favorite = userFavorites.SingleOrDefault(f => f.TripId == trip.Id);
-                tripViewModel.IsAlreadyCurrentUserFavorite = favorite != null;
+                indexTripViewModel.IsAlreadyCurrentUserFavorite = favorite != null;
             }
-            result.Add(tripViewModel);
+            result.Trips.Add(indexTripViewModel);
+        }
+
+        var allLocations = await _tripRepository.GetAllTripLocationsAsync();
+        foreach (var location in allLocations)
+        {
+            result.AllLocations.Add(new SelectListItem(location,location.ToLower()));
         }
         
+        var tripsSorted = result.Trips.OrderByDescending(f => f.FavoriteCount).ToList();
+        result.Trips = tripsSorted;
         return View(result);
     }
     
@@ -73,17 +84,17 @@ public class HomeController : Controller
             userFavorites = await _favoriteRepository.GetAllFavoritesByUserIdAsync(userId);
         }
 
-        var tripViewModel = trip.MapToDetailsViewModel();
-        tripViewModel.IsCreatedByCurrentUser = trip.UserId == userId;
-        tripViewModel.FavoriteCount = await _favoriteRepository.CountTripFavoritesAsync(trip.Id);
+        var indexViewModel = trip.MapToDetailsViewModel();
+        indexViewModel.IsCreatedByCurrentUser = trip.UserId == userId;
+        indexViewModel.FavoriteCount = await _favoriteRepository.CountTripFavoritesAsync(trip.Id);
         
         if (userFavorites != null)
         {
             var favorite = userFavorites.SingleOrDefault(f => f.TripId == trip.Id);
-            tripViewModel.IsAlreadyCurrentUserFavorite = favorite != null;
+            indexViewModel.IsAlreadyCurrentUserFavorite = favorite != null;
         }
         
-        return View(tripViewModel);
+        return View(indexViewModel);
     }
 }
 

@@ -48,4 +48,17 @@ public class Trip
 
         return result;
     }
+
+    public IndexTripViewModel MapToIndexTripViewModel()
+    {
+        return new IndexTripViewModel
+        {
+            Id = Id,
+            Name = Name,
+            Location = Location,
+            IsPublic = IsPublic,
+            StartDate = StartDate,
+            EndDate = EndDate
+        };
+    }
 }

@@ -20,11 +20,23 @@ public class TripRepository
             .ToListAsync();
     }
 
-    public async Task<List<Trip>> GetAllPublicTrips()
+    public async Task<List<Trip>> GetAllPublicTrips(List<string> locationsToFilter = null)
+    {
+        var query = _applicationDbContext.Trips
+            .Include(t => t.PlacesToVisit)
+            .Where(t => t.IsPublic);
+
+        if (locationsToFilter != null && locationsToFilter.Count > 0)
+        {
+            query = query.Where(q => locationsToFilter.Contains(q.Location.ToLower()));
+        }
+
+        return await query.ToListAsync();
+    }
+    public async Task<List<string>> GetAllTripLocationsAsync()
     {
         return await _applicationDbContext.Trips
-            .Include(t => t.PlacesToVisit)
-            .Where(t => t.IsPublic)
+            .Select(a => a.Location)
             .ToListAsync();
     }
 
