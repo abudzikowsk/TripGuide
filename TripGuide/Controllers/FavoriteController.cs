@@ -26,10 +26,12 @@ public class FavoriteController : Controller
         var favorites = await _favoriteRepository.GetAllFavoritesByUserIdAsync(user);
 
         var result = new List<FavoriteViewModel>();
-
+        
         foreach (var favorite in favorites)
         {
-            result.Add(favorite.MapToViewModel());
+            var favoriteViewModel = favorite.MapToViewModel();
+            favoriteViewModel.FavoriteCount = await _favoriteRepository.CountTripFavoritesAsync(favorite.TripId);
+            result.Add(favoriteViewModel);
         }
         return View(result);
     }

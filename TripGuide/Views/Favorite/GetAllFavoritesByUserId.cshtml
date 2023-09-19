@@ -6,12 +6,13 @@
     <span class="title-for-trip-list">Name</span>
     <span class="title-for-trip-list">Location</span>
     <span class="title-for-trip-list">Favorite</span>
-
+    <span class="title-for-trip-list">Users love</span>
 
 @foreach (var favorite in Model)
 {
     <a asp-controller="Home" asp-action="HomeTripDetails" asp-route-id="@favorite.TripId"><span>@favorite.Name</span></a>
     <span>@favorite.Location</span>
+    <span>@favorite.FavoriteCount</span>
     <form method="post" asp-controller="Favorite" asp-action="DeleteFavorite" asp-route-tripId="@favorite.Id">
        <button type="submit">Delete</button>
     </form>    
