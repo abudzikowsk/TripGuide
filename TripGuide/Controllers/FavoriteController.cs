@@ -38,17 +38,22 @@ public class FavoriteController : Controller
 
     [HttpPost]
     [Route("{action}/{tripId:int}/{source}")]
-    public async Task<ActionResult> DeleteFavorite(int tripId, string source)
+    public async Task<ActionResult> DeleteFavorite(int tripId, SourceEnum source)
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
         await _favoriteRepository.DeleteFavoriteAsync(tripId, userId);
 
-        if (source == SourceEnum.TripList.ToString())
+        switch (source)
         {
-            return RedirectToAction("Index", "Home");
+            case SourceEnum.TripList:
+                return RedirectToAction("Index", "Home");
+            case SourceEnum.TripDetails:
+                return RedirectToAction("HomeTripDetails", "Home", new {id = tripId});
+            case SourceEnum.FavoriteList:
+                return RedirectToAction("GetAllFavoritesByUserId");
         }
-        
-        return RedirectToAction("HomeTripDetails", "Home", new {id = tripId});
+
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpPost]

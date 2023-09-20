@@ -4,36 +4,46 @@
     ViewData["Title"] = "Create new trip";
 }
 
+<h1 class="display-1">Your trips</h1>
 <a asp-action="CreateTrip">Create new trip</a>
-
-<h1 class="header">Your trips</h1>
 @if(Model.Count > 0)
 {
-    <div class="trips-list">
-        <span class="title-for-trip-list">Name</span>
-        <span class="title-for-trip-list">Location</span>
-        <span class="title-for-trip-list">Start date</span>
-        <span class="title-for-trip-list">End date</span>
-        <span class="title-for-trip-list">Is public?</span>
-        <span class="title-for-trip-list">Delete?</span>
-            
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Location</th>
+                <th scope="col">Start date</th>
+                <th scope="col">End date</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        
+        <tbody>
         @foreach (var trip in Model)
         {
-            <a asp-action="TripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a>
-            <span>@trip.Location</span>
-            <span>@trip.StartDate</span>
-            <span>@trip.EndDate</span>
-            <span>
-                @(trip.IsPublic ? "Yes" : "No")
-                <form class="switch-publicity-form" asp-action="SwitchTripStatusPublicity" asp-route-tripId="@trip.Id" asp-route-source="@SourceEnum.TripList.ToString()">
-                    <button type="submit">Switch</button>
-                </form>
-            </span>           
-            <form>
-                <button type="submit">Yes</button>
-            </form>
+                <tr>
+                    <td><a asp-action="TripDetails" asp-route-id="@trip.Id"><span>@trip.Name</span></a></td>
+                    <td>@trip.Location</td>
+                    <td>@trip.StartDate.ToString("D")</td>
+                    <td>@trip.EndDate.ToString("D")</td>
+                    <td>
+                        <form asp-action="SwitchTripStatusPublicity" asp-route-tripId="@trip.Id" asp-route-source="@SourceEnum.TripList.ToString()">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                @(trip.IsPublic ? "Unpublish" : "Publish")
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="DeleteTrip" asp-route-tripId="@trip.Id" method="post">
+                            <button class="btn btn-outline-secondary" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
         }
-    </div>
+        </tbody>
+    </table>
 }
 else
 {

@@ -1,29 +1,31 @@
 @model CreatePlaceToVisitViewModel
 @{
-    ViewData["Title"] = "Add place to visit";
+    ViewData["Title"] = "Create place to visit";
 }
 
-<div class="new-place">
-    <h1>Add place to visit</h1>
-    <form class="new-place-form" method="post">
-        <div class="input">
-            <label asp-for="Name">Name</label>
-            <input asp-for="Name"/>
-            <span class="validation-error" asp-validation-for="Name"></span>
-        </div>
-        
-        <div class="input">
-            <label asp-for="VisitOrder">Location visit order</label>
-            <input asp-for="VisitOrder"/>
-            <span class="validation-error" asp-validation-for="VisitOrder"></span>
-        </div>
-        
-        <div class="input">
-            <label asp-for="Note">Note</label>
-            <input asp-for="Note"/>
-            <span class="validation-error" asp-validation-for="Note"></span>
-        </div>
-        
-        <button class="button" type="submit">Add</button>
-    </form>
+<h1 class="display-1">Create place to visit</h1>
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <div class="form-floating mb-3">
+                <input class="form-control" asp-for="Name" placeholder="Name"/>
+                <label asp-for="Name">Name</label>
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" asp-for="VisitOrder" placeholder="Order"/>
+                <label asp-for="VisitOrder">Order</label>
+                <span class="text-danger" asp-validation-for="VisitOrder"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" asp-for="Note" placeholder="Note"/>
+                <label asp-for="Note">Note</label>
+                <span class="text-danger" asp-validation-for="Note"></span>
+            </div>
+
+            <button class="btn btn-primary">Create</button>
+        </form>
+    </div>
 </div>
