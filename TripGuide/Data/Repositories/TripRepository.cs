@@ -36,6 +36,7 @@ public class TripRepository
     public async Task<List<string>> GetAllTripLocationsAsync()
     {
         return await _applicationDbContext.Trips
+            .Where(a => a.IsPublic)
             .Select(a => a.Location)
             .ToListAsync();
     }
