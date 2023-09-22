@@ -7,7 +7,8 @@ public class Trip
     public int Id { get; set; }
     public string UserId { get; set; }
     public string Name { get; set; }
-    public string Location { get; set; }
+    public string City { get; set; }
+    public string Country { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     
@@ -21,7 +22,8 @@ public class Trip
         {
             Id = Id,
             Name = Name,
-            Location = Location,
+            City = City,
+            Country = Country,
             StartDate = StartDate,
             EndDate = EndDate,
             IsPublic = IsPublic
@@ -34,7 +36,8 @@ public class Trip
         {
             Id = Id,
             Name = Name,
-            Location = Location,
+            City = City,
+            Country = Country,
             StartDate = StartDate,
             EndDate = EndDate,
             IsPublic = IsPublic,
@@ -55,7 +58,8 @@ public class Trip
         {
             Id = Id,
             Name = Name,
-            Location = Location,
+            City = City,
+            Country = Country,
             IsPublic = IsPublic,
             StartDate = StartDate,
             EndDate = EndDate

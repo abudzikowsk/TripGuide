@@ -28,7 +28,7 @@ public class TripRepository
 
         if (locationsToFilter != null && locationsToFilter.Count > 0)
         {
-            query = query.Where(q => locationsToFilter.Contains(q.Location.ToLower()));
+            query = query.Where(q => locationsToFilter.Contains(q.City.ToLower()));
         }
 
         return await query.ToListAsync();
@@ -37,7 +37,7 @@ public class TripRepository
     {
         return await _applicationDbContext.Trips
             .Where(a => a.IsPublic)
-            .Select(a => a.Location)
+            .Select(a => a.City)
             .ToListAsync();
     }
 
@@ -48,13 +48,14 @@ public class TripRepository
             .SingleOrDefaultAsync(t => t.Id == id);
     }
 
-    public async Task CreateTripAsync(string userId, string name, string location, DateTime startDate, DateTime endDate)
+    public async Task CreateTripAsync(string userId, string name, string city, string country,DateTime startDate, DateTime endDate)
     {
         var newTrip = new Trip
         {
             UserId = userId,
             Name = name,
-            Location = location,
+            City = city,
+            Country = country,
             StartDate = startDate,
             EndDate = endDate
         };
@@ -85,8 +86,8 @@ public class TripRepository
         string name, 
         int visitOrder, 
         string note, 
-        int longitude, 
-        int latitude)
+        string longitude, 
+        string latitude)
     {
         var trip = await _applicationDbContext.Trips.SingleOrDefaultAsync(t => t.Id == tripId);
         

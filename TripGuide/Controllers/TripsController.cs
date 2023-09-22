@@ -56,7 +56,7 @@ public class TripsController : Controller
         var currentlyLoggedInUser = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
         await _tripRepository.CreateTripAsync(currentlyLoggedInUser, createTripViewModel.Name,
-            createTripViewModel.Location, createTripViewModel.StartDate, createTripViewModel.EndDate);
+            createTripViewModel.City, createTripViewModel.Country, createTripViewModel.StartDate, createTripViewModel.EndDate);
 
         return RedirectToAction("GetAllTripsForCurrentlyLoggedInUser");
     }
@@ -72,28 +72,42 @@ public class TripsController : Controller
 
     [HttpGet]
     [Route("{action}/{tripId:int}")]
-    public ActionResult CreatePlaceToVisit()
+    public async Task<ActionResult> CreatePlaceToVisit(int tripId)
     {
-        return View();
+        var trip = await _tripRepository.GetTripByIdAsync(tripId);
+
+        if (trip == null)
+        {
+            return RedirectToAction("GetAllTripsForCurrentlyLoggedInUser");
+        }
+
+        var createPlaceToVisitViewModel = new CreatePlaceToVisitViewModel()
+        {
+            City = trip.City,
+            Country = trip.Country
+        };
+        
+        return View(createPlaceToVisitViewModel);
     }
 
     [HttpPost]
     [Route("{action}/{tripId:int}")]
-    public async Task<ActionResult> CreatePlaceToVisit(CreatePlaceToVisitViewModel createPlaceToVisitViewModel,
-        int tripId)
+    public async Task<ActionResult> CreatePlaceToVisit(CreatePlaceToVisitViewModel createPlaceToVisitViewModel, int tripId)
     {
-        if (!TryValidateModel(createPlaceToVisitViewModel))
-        {
-            return View(createPlaceToVisitViewModel);
-        }
-
         var trip = await _tripRepository.GetTripByIdAsync(tripId);
 
         if (trip is null)
         {
             return RedirectToAction("GetAllTripsForCurrentlyLoggedInUser");
         }
-
+        
+        if (!TryValidateModel(createPlaceToVisitViewModel))
+        {
+            createPlaceToVisitViewModel.City = trip.City;
+            createPlaceToVisitViewModel.Country = trip.Country;
+            return View(createPlaceToVisitViewModel);
+        }
+        
         await _tripRepository.CreatePlaceToVisitAsync(
             tripId,
             createPlaceToVisitViewModel.Name,

@@ -11,7 +11,11 @@ public class CreateTripViewModel
     
     [Required]
     [MaxLength(255)]
-    public string Location { get; set; }
+    public string City { get; set; }
+    
+    [Required]
+    [MaxLength(255)]
+    public string Country { get; set; }
     
     [Required]
     public DateTime StartDate { get; set; }

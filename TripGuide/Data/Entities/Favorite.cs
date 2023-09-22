@@ -18,7 +18,7 @@ public class Favorite
         return new FavoriteViewModel
         {
             Id = Id,
-            Location = Trip.Location,
+            City = Trip.City,
             Name = Trip.Name,
             TripId = TripId
         };

@@ -6,7 +6,7 @@
 <h1 class="display-1">Trip details @Model.Name</h1>
 <div class="container text-center">
     <div class="row">
-        <p class="col fs-3">Location: @Model.Location</p>
+        <p class="col fs-3">Location: @Model.City, @Model.Country</p>
         <p class="col fs-3">Loves: @Model.FavoriteCount</p>
         @if (SignInManager.IsSignedIn(User))
         {

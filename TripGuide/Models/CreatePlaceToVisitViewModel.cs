@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace TripGuide.Models;
 
@@ -15,6 +16,13 @@ public class CreatePlaceToVisitViewModel
     [MaxLength(1000)]
     public string Note { get; set; }
     
-    public int Longitude { get; set; }
-    public int Latitude { get; set; }
+    [Required]
+    public string Longitude { get; set; }
+    
+    [Required]
+    public string Latitude { get; set; }
+    
+    public string? City { get; set; }
+    
+    public string? Country { get; set; }
 }

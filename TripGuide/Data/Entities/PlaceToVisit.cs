@@ -9,8 +9,8 @@ public class PlaceToVisit
     public string Name { get; set; }
     public int VisitOrder { get; set; }
     public string Note { get; set; }
-    public int Longitude { get; set; }
-    public int Latitude { get; set; }
+    public string Longitude { get; set; }
+    public string Latitude { get; set; }
 
     public PlaceToVisitViewModel MapToViewModel()
     {
