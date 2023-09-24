@@ -24,4 +24,6 @@ public class PlaceToVisit
             VisitOrder = VisitOrder
         };
     }
+
+    public Trip Trip { get; set; }
 }

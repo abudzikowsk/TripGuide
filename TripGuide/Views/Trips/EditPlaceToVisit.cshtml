@@ -1,0 +1,71 @@
+@model EditPlaceToVisitViewModel
+@{
+    ViewData["Title"] = @Model.Name + " - edit place to visit";
+}
+
+<h1 class="display-1 text-center">Edit place to visit</h1>
+<div class="ms-auto me-auto mb-3" style="width: 800px; height: 600px;" id="map"></div>
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <span class="text-danger" asp-validation-for="Latitude"></span>
+            
+            <div class="form-floating mb-3">
+                <input class="form-control" asp-for="Name" placeholder="Name"/>
+                <label asp-for="Name">Name</label>
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" asp-for="VisitOrder" placeholder="Order"/>
+                <label asp-for="VisitOrder">Order</label>
+                <span class="text-danger" asp-validation-for="VisitOrder"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" asp-for="Note" placeholder="Note"/>
+                <label asp-for="Note">Note</label>
+                <span class="text-danger" asp-validation-for="Note"></span>
+            </div>
+            <input type="hidden" asp-for="Latitude"/>
+            <input type="hidden" asp-for="Longitude"/>
+            <button class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        async function main(){
+            const cityToSearch = "@Model.City";
+            const countryToSearch = "@Model.Country";
+        
+            const response = await fetch('https://nominatim.openstreetmap.org/search?city=' + cityToSearch + '&country=' + countryToSearch + '&format=json');
+            const data = await response.json();
+        
+        
+            const mapOptions = {
+                center: [data[0].lat, data[0].lon],
+                zoom: 11
+            };
+        
+            const map = new L.map('map', mapOptions);
+            const layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+            map.addLayer(layer);  
+            
+            
+            let marker = L.marker([@Model.Latitude, @Model.Longitude]).addTo(map);
+            map.on("click", event => {
+                if (marker !== null) {
+                    map.removeLayer(marker);
+                }
+                marker = L.marker([event.latlng.lat, event.latlng.lng]).addTo(map);
+                document.getElementById("@nameof(Model.Longitude)").value = event.latlng.lng;
+                document.getElementById("@nameof(Model.Latitude)").value = event.latlng.lat;
+            });
+        }
+        
+        main();
+    </script>
+}

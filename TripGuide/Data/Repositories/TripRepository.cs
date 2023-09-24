@@ -20,6 +20,13 @@ public class TripRepository
             .ToListAsync();
     }
 
+    public async Task<PlaceToVisit> GetPlaceToVisitByIdAsync(int id)
+    {
+        return await _applicationDbContext.PlacesToVisit
+            .Include(p => p.Trip)
+            .SingleOrDefaultAsync(p => p.Id == id);
+    }
+
     public async Task<List<Trip>> GetAllPublicTrips(List<string> citiesToFilter = null, List<string> countriesToFilter = null)
     {
         var query = _applicationDbContext.Trips
@@ -146,6 +153,43 @@ public class TripRepository
         }
 
         trip.IsPublic = !trip.IsPublic;
+        await _applicationDbContext.SaveChangesAsync();
+    }
+
+    public async Task EditTrip(int id, string name, string city, string country, DateTime startDate, DateTime endDate)
+    {
+        var trip = await _applicationDbContext.Trips.SingleOrDefaultAsync(t => t.Id == id);
+
+        if (trip is null)
+        {
+            return;   
+        }
+        
+        trip.Name = name;
+        trip.City = city;
+        trip.Country = country;
+        trip.StartDate = startDate;
+        trip.EndDate = endDate;
+
+        await _applicationDbContext.SaveChangesAsync();
+    }
+
+    public async Task EditPlaceToVisit(
+        int id, string name, int visitOrder, string note, string longitude, string latitude)
+    {
+        var placeToVisit = await _applicationDbContext.PlacesToVisit.SingleOrDefaultAsync(p => p.Id == id);
+
+        if (placeToVisit is null)
+        {
+            return;
+        }
+
+        placeToVisit.Name = name;
+        placeToVisit.VisitOrder = visitOrder;
+        placeToVisit.Note = note;
+        placeToVisit.Longitude = longitude;
+        placeToVisit.Latitude = latitude;
+
         await _applicationDbContext.SaveChangesAsync();
     }
 }

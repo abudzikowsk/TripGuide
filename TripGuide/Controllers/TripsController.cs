@@ -152,4 +152,89 @@ public class TripsController : Controller
             return RedirectToAction("TripDetails", new { id = tripId});
         }
     }
+
+    [HttpGet]
+    [Route("{action}/{id:int}")]
+    public async Task<ActionResult> EditTrip(int id)
+    {
+        var trip = await _tripRepository.GetTripByIdAsync(id);
+
+        var editTripViewModel = new EditTripViewModel
+        {
+            Name = trip.Name,
+            City = trip.City,
+            Country = trip.Country,
+            StartDate = trip.StartDate,
+            EndDate = trip.EndDate
+        };
+
+        return View(editTripViewModel);
+    }
+
+    [HttpPost]
+    [Route("{action}/{id:int}")]
+    public async Task<ActionResult> EditTrip(int id, EditTripViewModel editTripViewModel)
+    {
+        var trip = await _tripRepository.GetTripByIdAsync(id);
+
+        if (trip == null)
+        {
+            return RedirectToAction("GetAllTripsForCurrentlyLoggedInUser");
+        }
+
+        if (!TryValidateModel(editTripViewModel))
+        {
+            return View(editTripViewModel);
+        }
+
+        await _tripRepository.EditTrip(
+            id, editTripViewModel.Name, editTripViewModel.City, editTripViewModel.Country, editTripViewModel.StartDate,
+            editTripViewModel.EndDate);
+
+        return RedirectToAction("TripDetails", new {id = id});
+    }
+
+    [HttpGet]
+    [Route("{action}/{placeToVisitId:int}")]
+    public async Task<ActionResult> EditPlaceToVisit(int placeToVisitId)
+    {
+        var placeToVisit = await _tripRepository.GetPlaceToVisitByIdAsync(placeToVisitId);
+
+        var editPlaceToVisitViewModel = new EditPlaceToVisitViewModel
+        {
+            Name = placeToVisit.Name,
+            City = placeToVisit.Trip.City,
+            Country = placeToVisit.Trip.Country,
+            VisitOrder = placeToVisit.VisitOrder,
+            Longitude = placeToVisit.Longitude,
+            Latitude = placeToVisit.Latitude,
+            Note = placeToVisit.Note
+        };
+
+        return View(editPlaceToVisitViewModel);
+    }
+
+    [HttpPost]
+    [Route("{action}/{placeToVisitId:int}")]
+    public async Task<ActionResult> EditPlaceToVisit(int placeToVisitId,
+        EditPlaceToVisitViewModel editPlaceToVisitViewModel)
+    {
+        var placeToVisit = await _tripRepository.GetPlaceToVisitByIdAsync(placeToVisitId);
+
+        if (placeToVisit == null)
+        {
+            return RedirectToAction("GetAllTripsForCurrentlyLoggedInUser");
+        }
+
+        if (!TryValidateModel(editPlaceToVisitViewModel))
+        {
+            return View(editPlaceToVisitViewModel);
+        }
+
+        await _tripRepository.EditPlaceToVisit(
+            placeToVisitId, editPlaceToVisitViewModel.Name, editPlaceToVisitViewModel.VisitOrder,
+            editPlaceToVisitViewModel.Note, editPlaceToVisitViewModel.Longitude, editPlaceToVisitViewModel.Latitude);
+
+        return RedirectToAction("TripDetails", new { id = placeToVisit.TripId });
+    }
 }

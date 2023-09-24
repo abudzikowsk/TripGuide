@@ -1,0 +1,50 @@
+@model EditTripViewModel
+
+@{
+    ViewData["Title"] = @Model.Name + " - edit trip";
+}
+
+<h1 class="display-1">Edit trip</h1>
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <div class="form-floating mb-3">
+                <input class="form-control" asp-for="Name" placeholder="Name"/>
+                <label asp-for="Name">Name</label>
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+
+                <input class="form-control" asp-for="City" placeholder="City"/>
+                <label asp-for="City">City</label>
+                <span class="text-danger" asp-validation-for="City"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+
+                <input class="form-control" asp-for="Country" placeholder="Country"/>
+                <label asp-for="Country">Country</label>
+                <span class="text-danger" asp-validation-for="Country"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+
+                <input class="form-control" asp-for="StartDate" placeholder="2023-09-21T22:43"/>
+                <label asp-for="StartDate">Start date</label>
+                <span class="text-danger" asp-validation-for="StartDate"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+
+                <input class="form-control" asp-for="EndDate" placeholder="2023-09-21T22:43"/>
+                <label asp-for="EndDate">End date</label>
+                <span class="text-danger" asp-validation-for="EndDate"></span>
+            </div>
+
+            <button class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+

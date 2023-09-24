@@ -10,18 +10,17 @@
     <div class="row">
         <p class="col fs-4">Location: @Model.City, @Model.Country</p>
         <p class="col-4 fs-4"> @Model.StartDate.ToString("dd MMMM yyyy") - @Model.EndDate.ToString("dd MMMM yyyy")</p>
-        <td>
-            <form class="col" asp-action="SwitchTripStatusPublicity" asp-route-tripId="@Model.Id" asp-route-source="@SourceEnum.TripDetails.ToString()">
-                <button class="btn btn-outline-secondary" type="submit">
-                    @(Model.IsPublic ? "Unpublish" : "Publish")
-                </button>
-            </form>
-        </td>
-        <td>
+        <form class="col" asp-action="SwitchTripStatusPublicity" asp-route-tripId="@Model.Id" asp-route-source="@SourceEnum.TripDetails.ToString()">
+            <button class="btn btn-outline-secondary" type="submit">
+                @(Model.IsPublic ? "Unpublish" : "Publish")
+            </button>
+        </form>
+        <div class="col">
+            <a class="btn btn-outline-secondary" asp-action="EditTrip" asp-route-id="@Model.Id">Edit</a>
+        </div>
             <form class="col" asp-action="DeleteTrip" asp-route-tripId="@Model.Id">
                 <button class="btn btn-outline-secondary" type="submit">Delete</button>
             </form>
-        </td>
     </div>
 </div>
 <div class="ms-auto me-auto" style="width: 800px; height: 600px;" id="map"></div>
@@ -34,6 +33,7 @@
         <th scope="col">Name</th>
         <th scope="col">Note</th>
         <th></th>
+        <th></th>
     </tr>
     </thead>
 
@@ -45,6 +45,9 @@
             <td>@placeToVisit.VisitOrder</td>
             <td>@placeToVisit.Name</td>
             <td>@placeToVisit.Note</td>
+            <td>
+                <a class="btn btn-outline-secondary" asp-action="EditPlaceToVisit" asp-route-placeToVisitId="@placeToVisit.Id">Edit</a>
+            </td>
             <td>
                 <form asp-route-tripId="@Model.Id" asp-route-placeToVisitId="@placeToVisit.Id" asp-action="DeletePlaceToVisit" method="post">
                     <button class="btn btn-outline-secondary" type="submit">Delete</button>
