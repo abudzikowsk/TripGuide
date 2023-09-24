@@ -256,6 +256,9 @@ namespace TripGuide.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Latitude")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -395,11 +398,13 @@ namespace TripGuide.Migrations
 
             modelBuilder.Entity("TripGuide.Data.Entities.PlaceToVisit", b =>
                 {
-                    b.HasOne("TripGuide.Data.Entities.Trip", null)
+                    b.HasOne("TripGuide.Data.Entities.Trip", "Trip")
                         .WithMany("PlacesToVisit")
                         .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Trip");
                 });
 
             modelBuilder.Entity("TripGuide.Data.Entities.Trip", b =>

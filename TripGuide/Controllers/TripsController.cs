@@ -31,7 +31,9 @@ public class TripsController : Controller
 
         foreach (var trip in allTrips)
         {
-            result.Add(trip.MapToViewModel());
+            var viewModel = trip.MapToViewModel();
+            viewModel.TotalCost = trip.PlacesToVisit.Select(p => p.Cost).Sum();
+            result.Add(viewModel);
         }
 
         return View(result);
@@ -66,8 +68,10 @@ public class TripsController : Controller
     public async Task<ActionResult> TripDetails(int id)
     {
         var trip = await _tripRepository.GetTripByIdAsync(id);
+        var viewModel = trip.MapToDetailsViewModel();
+        viewModel.TotalCost = trip.PlacesToVisit.Select(p => p.Cost).Sum();
 
-        return View(trip.MapToDetailsViewModel());
+        return View(viewModel);
     }
 
     [HttpGet]
@@ -114,7 +118,8 @@ public class TripsController : Controller
             createPlaceToVisitViewModel.VisitOrder,
             createPlaceToVisitViewModel.Note,
             createPlaceToVisitViewModel.Longitude,
-            createPlaceToVisitViewModel.Latitude);
+            createPlaceToVisitViewModel.Latitude,
+            createPlaceToVisitViewModel.Cost);
 
         return RedirectToAction("TripDetails", new { id = tripId });
     }
@@ -208,7 +213,8 @@ public class TripsController : Controller
             VisitOrder = placeToVisit.VisitOrder,
             Longitude = placeToVisit.Longitude,
             Latitude = placeToVisit.Latitude,
-            Note = placeToVisit.Note
+            Note = placeToVisit.Note, 
+            Cost = placeToVisit.Cost
         };
 
         return View(editPlaceToVisitViewModel);
@@ -233,7 +239,7 @@ public class TripsController : Controller
 
         await _tripRepository.EditPlaceToVisit(
             placeToVisitId, editPlaceToVisitViewModel.Name, editPlaceToVisitViewModel.VisitOrder,
-            editPlaceToVisitViewModel.Note, editPlaceToVisitViewModel.Longitude, editPlaceToVisitViewModel.Latitude);
+            editPlaceToVisitViewModel.Note, editPlaceToVisitViewModel.Longitude, editPlaceToVisitViewModel.Latitude, editPlaceToVisitViewModel.Cost);
 
         return RedirectToAction("TripDetails", new { id = placeToVisit.TripId });
     }

@@ -14,4 +14,5 @@ public class TripDetailsViewModel
     public List<PlaceToVisitViewModel> PlacesToVisit { get; set; }
 
     public int FavoriteCount { get; set; }
+    public decimal TotalCost { get; set; }
 }

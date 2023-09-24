@@ -27,6 +27,13 @@
                 <label asp-for="Note">Note</label>
                 <span class="text-danger" asp-validation-for="Note"></span>
             </div>
+            
+            <div class="form-floating mb-3">
+                <input class="form-control" asp-for="Cost" placeholder="20.99"/>
+                <label asp-for="Cost">Cost</label>
+                <span class="text-danger" asp-validation-for="Cost"></span>
+            </div>
+            
             <input type="hidden" asp-for="Latitude"/>
             <input type="hidden" asp-for="Longitude"/>
             <button class="btn btn-primary">Create</button>

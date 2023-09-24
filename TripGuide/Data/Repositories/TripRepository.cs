@@ -107,7 +107,8 @@ public class TripRepository
         int visitOrder, 
         string note, 
         string longitude, 
-        string latitude)
+        string latitude, 
+        decimal cost)
     {
         var trip = await _applicationDbContext.Trips.SingleOrDefaultAsync(t => t.Id == tripId);
         
@@ -123,7 +124,8 @@ public class TripRepository
             VisitOrder = visitOrder,
             Note = note,
             Longitude = longitude,
-            Latitude = latitude
+            Latitude = latitude,
+            Cost = cost
         };
         _applicationDbContext.PlacesToVisit.Add(newPlace);
         await _applicationDbContext.SaveChangesAsync();
@@ -175,7 +177,7 @@ public class TripRepository
     }
 
     public async Task EditPlaceToVisit(
-        int id, string name, int visitOrder, string note, string longitude, string latitude)
+        int id, string name, int visitOrder, string note, string longitude, string latitude, decimal cost)
     {
         var placeToVisit = await _applicationDbContext.PlacesToVisit.SingleOrDefaultAsync(p => p.Id == id);
 
@@ -189,6 +191,7 @@ public class TripRepository
         placeToVisit.Note = note;
         placeToVisit.Longitude = longitude;
         placeToVisit.Latitude = latitude;
+        placeToVisit.Cost = cost;
 
         await _applicationDbContext.SaveChangesAsync();
     }

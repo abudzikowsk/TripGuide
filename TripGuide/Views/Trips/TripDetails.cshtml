@@ -9,7 +9,8 @@
 <div class="container text-center">
     <div class="row">
         <p class="col fs-4">Location: @Model.City, @Model.Country</p>
-        <p class="col-4 fs-4"> @Model.StartDate.ToString("dd MMMM yyyy") - @Model.EndDate.ToString("dd MMMM yyyy")</p>
+        <p class="col-3 fs-4"> @Model.StartDate.ToString("dd MMMM yyyy") - @Model.EndDate.ToString("dd MMMM yyyy")</p>
+        <p class="col fs-4">Trip cost: @Model.TotalCost</p>
         <form class="col" asp-action="SwitchTripStatusPublicity" asp-route-tripId="@Model.Id" asp-route-source="@SourceEnum.TripDetails.ToString()">
             <button class="btn btn-outline-secondary" type="submit">
                 @(Model.IsPublic ? "Unpublish" : "Publish")
@@ -32,6 +33,7 @@
         <th scope="col">Order</th>
         <th scope="col">Name</th>
         <th scope="col">Note</th>
+        <th scope="col">Cost</th>
         <th></th>
         <th></th>
     </tr>
@@ -45,6 +47,7 @@
             <td>@placeToVisit.VisitOrder</td>
             <td>@placeToVisit.Name</td>
             <td>@placeToVisit.Note</td>
+            <td>@placeToVisit.Cost</td>
             <td>
                 <a class="btn btn-outline-secondary" asp-action="EditPlaceToVisit" asp-route-placeToVisitId="@placeToVisit.Id">Edit</a>
             </td>

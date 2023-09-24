@@ -12,6 +12,8 @@ public class PlaceToVisit
     public string Longitude { get; set; }
     public string Latitude { get; set; }
 
+    public decimal Cost { get; set; }
+
     public PlaceToVisitViewModel MapToViewModel()
     {
         return new PlaceToVisitViewModel
@@ -21,9 +23,9 @@ public class PlaceToVisit
             Latitude = Latitude,
             Longitude = Longitude,
             Note = Note,
-            VisitOrder = VisitOrder
+            VisitOrder = VisitOrder,
+            Cost = Cost
         };
     }
-
     public Trip Trip { get; set; }
 }
