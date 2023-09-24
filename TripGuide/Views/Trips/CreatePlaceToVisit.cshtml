@@ -3,11 +3,13 @@
     ViewData["Title"] = "Create place to visit";
 }
 
-<h1 class="display-1">Create place to visit</h1>
-<div style="width: 800px; height: 600px;" id="map"></div>
+<h1 class="display-1 text-center">Create place to visit</h1>
+<div class="ms-auto me-auto mb-3" style="width: 800px; height: 600px;" id="map"></div>
 <div class="card">
     <div class="card-body">
         <form method="post">
+            <span class="text-danger" asp-validation-for="Latitude"></span>
+            
             <div class="form-floating mb-3">
                 <input class="form-control" asp-for="Name" placeholder="Name"/>
                 <label asp-for="Name">Name</label>
@@ -25,8 +27,8 @@
                 <label asp-for="Note">Note</label>
                 <span class="text-danger" asp-validation-for="Note"></span>
             </div>
-            <input type="hidden" asp-for="Latitude" />
-            <input type="hidden" asp-for="Longitude" />
+            <input type="hidden" asp-for="Latitude"/>
+            <input type="hidden" asp-for="Longitude"/>
             <button class="btn btn-primary">Create</button>
         </form>
     </div>

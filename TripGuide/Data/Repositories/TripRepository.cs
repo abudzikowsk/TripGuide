@@ -20,24 +20,37 @@ public class TripRepository
             .ToListAsync();
     }
 
-    public async Task<List<Trip>> GetAllPublicTrips(List<string> locationsToFilter = null)
+    public async Task<List<Trip>> GetAllPublicTrips(List<string> citiesToFilter = null, List<string> countriesToFilter = null)
     {
         var query = _applicationDbContext.Trips
             .Include(t => t.PlacesToVisit)
             .Where(t => t.IsPublic);
 
-        if (locationsToFilter != null && locationsToFilter.Count > 0)
+        if (citiesToFilter != null && citiesToFilter.Count > 0)
         {
-            query = query.Where(q => locationsToFilter.Contains(q.City.ToLower()));
+            query = query.Where(q => citiesToFilter.Contains(q.City.ToLower()));
+        }
+
+        if (countriesToFilter != null && countriesToFilter.Count > 0)
+        {
+            query = query.Where(q => countriesToFilter.Contains(q.Country.ToLower()));
         }
 
         return await query.ToListAsync();
     }
-    public async Task<List<string>> GetAllTripLocationsAsync()
+    public async Task<List<string>> GetAllTripCitiesAsync()
     {
         return await _applicationDbContext.Trips
             .Where(a => a.IsPublic)
             .Select(a => a.City)
+            .ToListAsync();
+    }
+
+    public async Task<List<string>> GetAllTripCountriesAsync()
+    {
+        return await _applicationDbContext.Trips
+            .Where(a => a.IsPublic)
+            .Select(a => a.Country)
             .ToListAsync();
     }
 

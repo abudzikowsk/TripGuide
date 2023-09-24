@@ -20,13 +20,14 @@ public class HomeController : Controller
     }
     
     [HttpGet]
-    public async Task<IActionResult> Index(List<string> locationsToFilter)
+    public async Task<IActionResult> Index(List<string> citiesToFilter, List<string> countriesToFilter)
     {
-        var allTrips = await _tripRepository.GetAllPublicTrips(locationsToFilter);
+        var allTrips = await _tripRepository.GetAllPublicTrips(citiesToFilter, countriesToFilter);
         
         var result = new IndexViewModel();
         result.Trips = new List<IndexTripViewModel>();
-        result.AllLocations = new List<SelectListItem>();
+        result.AllCitites = new List<SelectListItem>();
+        result.AllCountries = new List<SelectListItem>();
 
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         List<Favorite> userFavorites = null;
@@ -48,15 +49,22 @@ public class HomeController : Controller
             result.Trips.Add(indexTripViewModel);
         }
 
-        var allLocations = await _tripRepository.GetAllTripLocationsAsync();
-        foreach (var location in allLocations)
+        var allCitites = await _tripRepository.GetAllTripCitiesAsync();
+        foreach (var city in allCitites)
         {
-            result.AllLocations.Add(new SelectListItem(location,location.ToLower()));
+            result.AllCitites.Add(new SelectListItem(city,city.ToLower()));
+        }
+
+        var allCountries = await _tripRepository.GetAllTripCountriesAsync();
+        foreach (var country in allCountries)
+        {
+            result.AllCountries.Add(new SelectListItem(country, country.ToLower()));
         }
         
         var tripsSorted = result.Trips.OrderByDescending(f => f.FavoriteCount).ToList();
         result.Trips = tripsSorted;
         return View(result);
+        
     }
     
     [HttpGet]

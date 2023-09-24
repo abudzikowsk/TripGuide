@@ -12,8 +12,12 @@
     <div class="row">
         <div class="col">
             <form class="d-grid gap-2" method="get">
-                <label class="form-control mb-1" for="locationsToFilter">City</label>
-                <select class="form-select mb-3" size="5" id="locationsToFilter" name="locationsToFilter" asp-items="@Model.AllLocations" multiple="multiple"></select>
+                <label class="form-control mb-1" for="citiesToFilter">City</label>
+                <select class="form-select mb-3" size="5" id="citiesToFilter" name="citiesToFilter" asp-items="@Model.AllCitites" multiple="multiple"></select>
+                
+                <label class="form-control mb-1" for="countriesToFilter">Country</label>
+                <select class="form-select mb-3" size="5" id="countriesToFilter" name="countriesToFilter" asp-items="@Model.AllCountries" multiple="multiple"></select>
+                
                 <button class="btn btn-outline-primary" type="submit">Filter</button>
             </form>
         </div>

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis;
 using TripGuide.Models;
 
 namespace TripGuide.Data.Entities;
@@ -19,6 +18,7 @@ public class Favorite
         {
             Id = Id,
             City = Trip.City,
+            Country = Trip.Country,
             Name = Trip.Name,
             TripId = TripId
         };

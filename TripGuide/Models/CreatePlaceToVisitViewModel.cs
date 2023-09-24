@@ -19,7 +19,7 @@ public class CreatePlaceToVisitViewModel
     [Required]
     public string Longitude { get; set; }
     
-    [Required]
+    [Required(ErrorMessage = "The point on map is required.")]
     public string Latitude { get; set; }
     
     public string? City { get; set; }
