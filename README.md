@@ -2,6 +2,18 @@
 
 TripGuide is a feature-rich web application designed to simplify trip planning and inspire travel enthusiasts to explore the world. With its user-friendly interface and robust technology stack, TripGuide provides a seamless experience for organizing and managing your trips.
 
+## App Screenshots
+
+Here are some screenshots of TripGuide in action:
+
+![Main Page](./images/IMG_6335.png)
+![Main Page](./images/IMG_6504.png)
+![Main Page](./images/IMG_3602.png)
+![Main Page](./images/IMG_1793.png)
+![Main Page](./images/IMG_7060.png)
+![Main Page](./images/IMG_0354.png)
+![Main Page](./images/IMG_3378.png)
+
 ## Table of Contents
 - [Concept](#concept)
 - [Features](#features)
