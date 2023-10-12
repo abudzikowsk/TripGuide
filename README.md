@@ -1,6 +1,6 @@
 # TripGuide
 
-Experience travel made easy with TripGuide's intuitive trip management tools, interactive maps, and robust security features. Explore, plan, and discover the world with confidence, all in one user-friendly platform.
+This platform is designed to assist travelers in exploring, planning, and discovering the world with confidence. It features interactive maps, a favorites system for inspiration, and a personalized destination list. 
 
 ## App Screenshots
 
