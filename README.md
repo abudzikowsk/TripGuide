@@ -4,8 +4,6 @@ This platform is designed to assist travelers in exploring, planning, and discov
 
 ## App Screenshots
 
-Here are some screenshots of TripGuide in action:
-
 ![Main Page](./images/IMG_6335.png)
 ![Main Page](./images/IMG_6504.png)
 ![Main Page](./images/IMG_3602.png)
