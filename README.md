@@ -1,6 +1,16 @@
 # TripGuide
 
-TripGuide is a feature-rich web application designed to simplify trip planning and inspire travel enthusiasts to explore the world. With its user-friendly interface and robust technology stack, TripGuide provides a seamless experience for organizing and managing your trips.
+This platform is designed to assist travelers in exploring, planning, and discovering the world with confidence. It features interactive maps, a favorites system for inspiration, and a personalized destination list. 
+
+## App Screenshots
+
+![Main Page](./images/IMG_6335.png)
+![Main Page](./images/IMG_6504.png)
+![Main Page](./images/IMG_3602.png)
+![Main Page](./images/IMG_1793.png)
+![Main Page](./images/IMG_7060.png)
+![Main Page](./images/IMG_0354.png)
+![Main Page](./images/IMG_3378.png)
 
 ## Table of Contents
 - [Concept](#concept)
@@ -10,7 +20,7 @@ TripGuide is a feature-rich web application designed to simplify trip planning a
 - [Usage](#usage)
 
 ## Concept
-TripGuide is built on the idea of making travel planning and exploration hassle-free. It aims to provide users with a secure platform to create, organize, and manage their trips while also offering a virtual travel experience for those who prefer to explore from home. The core concepts of TripGuide include:
+TripGuide is built on the idea of making travel planning and exploration hassle-free. It aims to provide users with a secure platform to create, organize, and manage their trips. The core concepts of TripGuide include:
 
 - **Secure User Authentication and Authorization**: Ensuring user data is protected through robust authentication and authorization mechanisms.
 
